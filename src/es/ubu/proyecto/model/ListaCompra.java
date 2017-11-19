@@ -42,8 +42,8 @@ public class ListaCompra {
 	 * Método para añadir una línea a la lista.
 	 * @param l, la línea a añadir. 
 	 */
-	public void add(Linea l) {
-		lista.add(l);
+	public boolean add(Linea l) {
+		return lista.add(l);
 	}
 
 	/**
@@ -60,8 +60,9 @@ public class ListaCompra {
 	 * @param l la línea a eliminar.
 	 * @return True si se ha pododido eliminar, false si no.
 	 */
-	public boolean remove(Linea l) {
-		return lista.remove(l);
+	public boolean remove(int indice) {
+		 if (lista.remove(indice) != null) return true;
+		 return false;
 	}
 	/**
 	 * Devuelve el índice de la línea.
@@ -79,15 +80,16 @@ public class ListaCompra {
 	 * @return True si ha podido cambiarla, False si no. 
 	 */
 	public boolean editProducto(int index,Producto p) {
-		if(index<lista.size()-1) {
+		if(index>lista.size()-1 || index<0) {
 			return false;
 		}
 		Linea l = lista.get(index);
-		l.setProducto(p);
-		lista.add(index,l);
-		return true;
-		
-		
+		if(l != null) {
+			l.setProducto(p);
+			lista.add(index,l);
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -97,13 +99,17 @@ public class ListaCompra {
 	 * @return True si ha podido cambiarla, False si no. 
 	 */
 	public boolean editCantidad(int index,int cantidad) {
-		if(index<lista.size()-1) {
+		if(index>lista.size()-1 || index<0) {
 			return false;
 		}
 		Linea l = lista.get(index);
-		l.setCantidad(cantidad);
-		lista.add(index,l);
-		return true;
+		if(l != null) {
+			l.setCantidad(cantidad);
+			lista.add(index,l);
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -113,13 +119,16 @@ public class ListaCompra {
 	 * @return True si ha podido cambiarla, False si no. 
 	 */
 	public boolean editComprado(int index,boolean comp) {
-		if(index<lista.size()-1) {
+		if(index>lista.size()-1 || index<0) {
 			return false;
 		}
 		Linea l = lista.get(index);
-		l.setComprado(comp);
-		lista.add(index,l);
-		return true;
+		if(l != null) {
+			l.setComprado(comp);
+			lista.add(index,l);
+			return true;
+		}
+		return false;
 	}
 	
 	public String toString() {
