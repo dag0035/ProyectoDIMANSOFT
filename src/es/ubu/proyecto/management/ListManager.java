@@ -2,7 +2,9 @@ package es.ubu.proyecto.management;
 
 
 import java.util.List;
+import java.util.ArrayList;
 import es.ubu.proyecto.model.*;
+
 
 /**
  * El gestor de la lista de la compra. Permite añadir lineas, borrarlas y editarlas. 
@@ -14,6 +16,11 @@ public class ListManager {
 	
 	private ListaCompra lista;
 	private List<Producto> favoritos;
+	
+	public ListManager() {
+		lista= new ListaCompra();
+		favoritos=new ArrayList<Producto>();
+	}
 	
 	
 	public boolean anadirLinea(String nombreProducto, int cantidad) {
@@ -39,5 +46,9 @@ public class ListManager {
 	public boolean marcarLineaNoComprada(int indice) {
 		return lista.editComprado(indice, false);
 		
+	}
+	
+	public String imprimirLista() {
+		return lista.toString();
 	}
 }

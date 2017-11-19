@@ -92,9 +92,9 @@ public class Linea {
 	public String toString() {
 		String res="";
 		res+=this.getProducto().getNombre();
-		res+="\t";
+		res+="\t\t";
 		res+=Integer.toString(this.getCantidad());
-		res+="\t";
+		res+="\t\t";
 		if(this.getComprado()) {
 			res+="Sí";
 		}else {

@@ -86,7 +86,8 @@ public class ListaCompra {
 		Linea l = lista.get(index);
 		if(l != null) {
 			l.setProducto(p);
-			lista.add(index,l);
+			lista.remove(index);
+			lista.add(index, l);
 			return true;
 		}
 		return false;
@@ -105,7 +106,8 @@ public class ListaCompra {
 		Linea l = lista.get(index);
 		if(l != null) {
 			l.setCantidad(cantidad);
-			lista.add(index,l);
+			lista.remove(index);
+			lista.add(index, l);
 			return true;
 		}
 
@@ -125,7 +127,8 @@ public class ListaCompra {
 		Linea l = lista.get(index);
 		if(l != null) {
 			l.setComprado(comp);
-			lista.add(index,l);
+			lista.remove(index);
+			lista.add(index, l);
 			return true;
 		}
 		return false;
@@ -134,6 +137,8 @@ public class ListaCompra {
 	public String toString() {
 		String res="";
 		for(Linea i: lista) {
+			res+=lista.indexOf(i);
+			res+=" - \t";
 			res+=i.toString();
 			res+="\n";
 		}
