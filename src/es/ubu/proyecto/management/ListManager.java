@@ -20,7 +20,6 @@ public class ListManager {
 		Producto p = new Producto(nombreProducto);
 		Linea l = new Linea(p,cantidad);
 		return lista.add(l);
-		
 	}
 	
 	public boolean eliminarLinea(int indice) {
