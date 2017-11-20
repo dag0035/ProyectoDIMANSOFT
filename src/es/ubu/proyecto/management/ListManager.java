@@ -19,7 +19,7 @@ public class ListManager {
 	
 	public ListManager() {
 		lista= new ListaCompra();
-		favoritos=new ArrayList<Producto>();
+		setFavoritos(new ArrayList<Producto>());
 	}
 	
 	
@@ -50,5 +50,23 @@ public class ListManager {
 	
 	public String imprimirLista() {
 		return lista.toString();
+	}
+
+	public ListaCompra getListaCompra() {
+		return lista;
+	}
+
+
+	public void setListaCompra(ListaCompra lista) {
+		this.lista=lista;
+	}
+	
+	public List<Producto> getFavoritos() {
+		return favoritos;
+	}
+
+
+	public void setFavoritos(List<Producto> favoritos) {
+		this.favoritos = favoritos;
 	}
 }

@@ -1,14 +1,17 @@
 package es.ubu.proyecto.textui;
 
 import es.ubu.proyecto.management.*;
+import es.ubu.proyecto.model.ListaCompra;
+import es.ubu.proyecto.storage.StorageFacade;
 import java.util.Scanner;
 
 public class TextMain {
 	
 	private static Scanner teclado = new Scanner(System.in);
 	private static final String msgErrorEntrada=("Opcion no valida, por favor introduce una opcion válida\n");
+	private static StorageFacade almacenamiento = new StorageFacade();
 	private static final String msgOpciones=(""
-			+ "0 - Guardar y salir"
+			+ "0 - Guardar y salir\n"
 			+ "1 - Añadir una linea nueva\n"
 			+ "2 - Eliminar una Linea\n"
 			+ "3 - Cambiar la cantidad del producto\n"
@@ -24,7 +27,7 @@ public class TextMain {
 		int linea=-1;
 		int cantidad=0;
 		String nombreProducto=""; 
-
+		manager.setListaCompra(almacenamiento.cargarListaCompra());
 		System.out.println("Bienvenido a tu lista de la compra.\n");
 
 		while(ejecucion) {
@@ -38,6 +41,14 @@ public class TextMain {
 			
 			
 			switch(opcion) {
+				case 0:
+					if(almacenamiento.guardarListaCompra(manager.getListaCompra())) {
+						System.out.println("Se ha guardado tu lista. ¡Hasta pronto!");
+					}else {
+						System.out.println("No se ha podido guardar, sentimos los molestias");
+					}
+					ejecucion=false;
+					break;
 				case 1:
 					System.out.println("Introduce el nombre del producto");
 					teclado.nextLine();
@@ -103,7 +114,7 @@ public class TextMain {
 				System.out.println("Debes introducir un número");
 				teclado = new Scanner(System.in);
 			}
-			if(opcion>=1 && opcion<=4) {
+			if(opcion>=0 && opcion<=4) {
 				correcto=false;
 			}else {
 				System.out.println(msgErrorEntrada);
