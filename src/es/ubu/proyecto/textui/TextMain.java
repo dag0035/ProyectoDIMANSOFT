@@ -27,10 +27,10 @@ public class TextMain {
 		int cantidad=0;
 		String nombreProducto=""; 
 		manager.setListaCompra(almacenamiento.cargarListaCompra());
-		System.out.println("Bienvenido a tu lista de la compra.\n");
+		System.out.println("\n\nBienvenido a tu lista de la compra.");
 
 		while(ejecucion) {
-			System.out.println("\n\n\n\n\n\nA continuación te monstramos tu lista.");
+			System.out.println("\nA continuación te monstramos tu lista.");
 			System.out.println("\tNombre\t\tCantidad\t\tComprado");
 			System.out.println(manager.imprimirLista());
 			System.out.println("¿Qué quieres hacer?");
