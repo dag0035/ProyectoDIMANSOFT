@@ -1,7 +1,6 @@
 package es.ubu.proyecto.textui;
 
 import es.ubu.proyecto.management.*;
-import es.ubu.proyecto.model.ListaCompra;
 import es.ubu.proyecto.storage.StorageFacade;
 import java.util.Scanner;
 

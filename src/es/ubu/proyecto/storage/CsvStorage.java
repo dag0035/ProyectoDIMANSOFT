@@ -2,7 +2,6 @@ package es.ubu.proyecto.storage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -80,6 +79,7 @@ public class CsvStorage {
 				l.setComprado(comprado);
 				lista.add(l);
 			}
+			lector.close();
 			escaner.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("No se ha podido cargar la lista desde csvStorage");
