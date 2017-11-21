@@ -68,14 +68,10 @@ public class CsvStorage {
 				escaner= new Scanner(linea);
 				escaner.useDelimiter(";");
 				nombreProducto=escaner.next();
-				System.out.println("Nombre leido de archivo: " + nombreProducto);
 				cantidad=Integer.parseInt(escaner.next());
-				System.out.println("Cantidad leido de archivo: " + cantidad);
 				comprado= Boolean.parseBoolean(escaner.next());
-				System.out.println("Comprado leido de archivo: " + comprado);
 				Producto p = new Producto(nombreProducto);
 				Linea l = new Linea(p,cantidad);
-				System.out.println("Linea:" + l);
 				l.setComprado(comprado);
 				lista.add(l);
 			}
