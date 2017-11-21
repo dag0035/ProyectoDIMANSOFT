@@ -1,9 +1,13 @@
 # Compiled class file
 *.class
 
+#Archivo de guardado
+*.csv
+
 # Log file
 *.log
 *.DS_Store
+.DS_Store
 
 # BlueJ files
 *.ctxt
