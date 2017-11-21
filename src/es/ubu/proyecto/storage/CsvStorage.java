@@ -75,8 +75,13 @@ public class CsvStorage {
 				l.setComprado(comprado);
 				lista.add(l);
 			}
-			lector.close();
-			escaner.close();
+			if(lector != null) {
+				lector.close();
+			}
+			if(escaner != null){
+				escaner.close();
+			}
+			
 		} catch (FileNotFoundException e) {
 			System.out.println("No se ha podido cargar la lista desde csvStorage");
 			return lista;
