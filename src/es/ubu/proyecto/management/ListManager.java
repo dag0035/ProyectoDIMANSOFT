@@ -17,7 +17,9 @@ public class ListManager {
 	private ListaCompra lista;
 	private List<Producto> favoritos;
 	
-	public ListManager() {
+	private static ListManager instance = null;
+	
+	private ListManager() {
 		lista= new ListaCompra();
 		setFavoritos(new ArrayList<Producto>());
 	}
@@ -68,5 +70,13 @@ public class ListManager {
 
 	public void setFavoritos(List<Producto> favoritos) {
 		this.favoritos = favoritos;
+	}
+	
+	public static ListManager getInstance() {
+		if (instance == null) {
+			return new ListManager();
+		}else {
+			return instance;
+		}
 	}
 }

@@ -21,7 +21,7 @@ public class TextMain {
 		
 		
 		Boolean ejecucion=true;
-		ListManager manager= new ListManager();
+		ListManager manager= ListManager.getInstance();
 		int opcion=0;
 		int linea=-1;
 		int cantidad=0;
