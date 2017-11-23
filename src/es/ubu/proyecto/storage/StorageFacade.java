@@ -5,7 +5,21 @@ import java.util.List;
 import es.ubu.proyecto.model.*;
 public class StorageFacade {
 	
-	private CsvStorage storage = new CsvStorage();
+	private CsvStorage storage;
+	
+	private static StorageFacade instance=null;
+	
+	private StorageFacade () {
+		 storage = new CsvStorage();
+	}
+	
+	public static StorageFacade getInstace() {
+		if (instance == null) {
+			return new StorageFacade();
+		}else {
+			return instance;
+		}
+	}
 	
 	public ListaCompra cargarListaCompra() {
 		return storage.readListaCompra();

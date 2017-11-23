@@ -8,7 +8,7 @@ public class TextMain {
 	
 	private static Scanner teclado = new Scanner(System.in);
 	private static final String msgErrorEntrada=("Opcion no valida, por favor introduce una opcion válida\n");
-	private static StorageFacade almacenamiento = new StorageFacade();
+	private static StorageFacade almacenamiento = StorageFacade.getInstace();
 	private static final String msgOpciones=(""
 			+ "0 - Guardar y salir\n"
 			+ "1 - Añadir una linea nueva\n"

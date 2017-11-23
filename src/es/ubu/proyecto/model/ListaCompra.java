@@ -61,8 +61,9 @@ public class ListaCompra {
 	 * @return True si se ha pododido eliminar, false si no.
 	 */
 	public boolean remove(int indice) {
-		 if (lista.remove(indice) != null) return true;
-		 return false;
+		if(indice>lista.size()-1 || indice<0) return false;
+		if (lista.remove(indice) != null) return true;
+		return false;
 	}
 	/**
 	 * Devuelve el índice de la línea.
