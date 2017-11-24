@@ -53,7 +53,7 @@ public class TextMain {
 					teclado.nextLine();
 					nombreProducto=teclado.nextLine();
 					System.out.println("Introduce la cantidad");
-					cantidad=teclado.nextInt();
+					cantidad=leerEnteroPositivoTeclado();
 					if(manager.anadirLinea(nombreProducto, cantidad)) {
 						System.out.println("Linea añadida correctamente");
 					}else {
@@ -63,7 +63,7 @@ public class TextMain {
 					
 				case 2:
 					System.out.println("¿Qué linea quieres eliminar?");
-					linea=teclado.nextInt();
+					linea=leerEnteroPositivoTeclado();
 					if(manager.eliminarLinea(linea)) {
 						System.out.println("La línea se ha eliminado");
 					}else {
@@ -74,9 +74,9 @@ public class TextMain {
 				case 3:
 					
 					System.out.println("¿Qué linea quieres modificar?");
-					linea=teclado.nextInt();
+					linea=leerEnteroPositivoTeclado();
 					System.out.println("¿Qué cantidad?");
-					cantidad=teclado.nextInt();
+					cantidad=leerEnteroPositivoTeclado();
 					if(manager.cambiarCantidad(linea, cantidad)) {
 						System.out.println("La línea se ha cambiado correctamente");
 					}else {
@@ -86,7 +86,7 @@ public class TextMain {
 					
 				case 4:
 					System.out.println("¿Qué linea quieres marcar como comprada?");
-					linea=teclado.nextInt();
+					linea=leerEnteroPositivoTeclado();
 					if(manager.marcarLineaComprada(linea)) {
 						System.out.println("La línea se ha cambiado correctamente");
 					}else {
@@ -103,22 +103,29 @@ public class TextMain {
 
 	}
 	
-	private static int leerOpcionTeclado() {
-		int opcion=-1;
+	private static int leerEnteroPositivoTeclado() {
+		int entero=-1;
 		Boolean correcto=true;
 		while(correcto) {
 			try{	
-				opcion = teclado.nextInt();
+				entero = teclado.nextInt();
 			}catch(java.util.InputMismatchException e) {
-				System.out.println("Debes introducir un número");
+				System.out.println("Opción no válida, debes introducir un número");
 				teclado = new Scanner(System.in);
 			}
-			if(opcion>=0 && opcion<=4) {
+			if(entero>-1) {
 				correcto=false;
-			}else {
-				System.out.println(msgErrorEntrada);
-				System.out.println(msgOpciones);
 			}
+		}
+		return entero;
+	}
+	
+	private static int leerOpcionTeclado() {
+		int opcion = leerEnteroPositivoTeclado();
+		while(opcion>4) {
+			System.out.println(msgErrorEntrada);
+			System.out.println(msgOpciones);
+			opcion = leerEnteroPositivoTeclado();
 		}
 		return opcion;
 	}
