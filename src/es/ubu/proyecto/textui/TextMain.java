@@ -31,7 +31,7 @@ public class TextMain {
 
 		while(ejecucion) {
 			System.out.println("\nA continuación te monstramos tu lista.");
-			System.out.println("\tNombre\t\tCantidad\t\tComprado");
+			System.out.println("\tNombre\t\tCantidad\tComprado");
 			System.out.println(manager.imprimirLista());
 			System.out.println("¿Qué quieres hacer?");
 			System.out.println(msgOpciones);
