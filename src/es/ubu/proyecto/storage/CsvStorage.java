@@ -86,10 +86,8 @@ public class CsvStorage {
 			System.out.println("No se ha podido cargar la lista desde csvStorage");
 			return lista;
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
