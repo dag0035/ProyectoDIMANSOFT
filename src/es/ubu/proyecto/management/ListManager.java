@@ -25,11 +25,18 @@ public class ListManager {
 	}
 	
 	
-	public boolean anadirLinea(String nombreProducto, int cantidad) {
+	public boolean anadirLinea(String nombreProducto, int cantidad, boolean fav) {
 		Producto p = new Producto(nombreProducto);
+		p.setFavorito(fav);
 		Linea l = new Linea(p,cantidad);
 		return lista.add(l);
 	}
+	
+	public boolean anadirProducto(Producto p,int cantidad) {
+		Linea l = new Linea(p,cantidad);
+		return lista.add(l);
+	}
+	
 	
 	public boolean eliminarLinea(int indice) {
 		return lista.remove(indice);
@@ -70,6 +77,30 @@ public class ListManager {
 
 	public void setFavoritos(List<Producto> favoritos) {
 		this.favoritos = favoritos;
+	}
+	
+	public Producto getFav(int indice) {
+		if(indice>=0 && indice<=favoritos.size()-1) {
+			return favoritos.get(indice);
+		}else {
+			return null;
+		}
+			
+	}
+	
+	public boolean borrarFav(int indice) {
+		if((favoritos.remove(indice)) != null) {
+			return true;
+		}else {
+			return false;
+		}
+
+	}
+	
+	public boolean anadirFav(String nombre) {
+		Producto p = new Producto(nombre);
+		p.setFavorito(true);
+		return favoritos.add(p);
 	}
 	
 	public static ListManager getInstance() {

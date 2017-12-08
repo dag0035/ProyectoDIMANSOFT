@@ -1,7 +1,6 @@
 package es.ubu.proyecto.textui;
 
 import es.ubu.proyecto.management.*;
-import es.ubu.proyecto.model.*;
 import es.ubu.proyecto.storage.StorageFacade;
 import java.util.Scanner;
 
@@ -38,7 +37,8 @@ public class TextMain {
 		while(ejecucion) {
 			System.out.println("\nA continuación te monstramos tu lista.");
 			System.out.println("\tNombre\t\tCantidad\tComprado");
-			System.out.println(manager.imprimirLista());
+				System.out.println(manager.imprimirLista());
+				System.out.println(manager.getFavoritos());
 			System.out.println("¿Qué quieres hacer?");
 			System.out.println(msgOpciones);
 			
@@ -60,7 +60,7 @@ public class TextMain {
 					nombreProducto=teclado.nextLine();
 					System.out.println("Introduce la cantidad");
 					cantidad=leerEnteroPositivoTeclado();
-					if(manager.anadirLinea(nombreProducto, cantidad)) {
+					if(manager.anadirLinea(nombreProducto, cantidad,false)) {
 						System.out.println("Linea añadida correctamente");
 					}else {
 						System.out.println("No se ha podido añadir la linea");
@@ -111,23 +111,38 @@ public class TextMain {
 					break;
 					
 				case 6:
-					System.out.println("Introduce el favorito que quieres añadir");
+					System.out.println("Introduce el número favorito que quieres añadir");
 					linea=leerEnteroPositivoTeclado();
-					if(linea<manager.getFavoritos().size()-1) {
+					if(linea<=manager.getFavoritos().size()-1) {
 						System.out.println("¿Qué cantidad?");
 						cantidad=leerEnteroPositivoTeclado();
-						manager.anadirLinea(manager.getFavoritos().get(linea).getNombre(), cantidad);
+						manager.anadirProducto(manager.getFav(linea), cantidad);
 					}else {
 						System.out.println("Parece que ese favorito no existe");
 					}
 					break;
 					
 				case 7:
-					
+					System.out.println("Introduce nombre del producto que quieres añadir: ");
+					teclado.nextLine();
+					nombreProducto=teclado.nextLine();
+					if(!nombreProducto.isEmpty()) {
+						manager.anadirFav(nombreProducto);
+						System.out.println("Añadido correctamente");
+					}else {
+						System.out.println("No se ha podido introducir ese producto en favoritos.");
+					}
 					break;
 					
 				case 8:
-					
+					System.out.println("Introduce número de favorito a borrar: ");
+					linea=leerEnteroPositivoTeclado();
+					if(linea<=manager.getFavoritos().size()-1) {
+						manager.borrarFav(linea);
+						System.out.println("Eliminado correctamente");
+					}else {
+						System.out.println("No se ha podido borrar ese favorito. Es probable que no exista");
+					}
 					break;
 				default:
 					System.out.println("Algo ha salido mal. Disculpa las molestias");

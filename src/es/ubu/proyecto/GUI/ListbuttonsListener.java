@@ -103,7 +103,7 @@ public class ListbuttonsListener implements EventHandler<MouseEvent> {
 		alert.setHeaderText("¿Seguro que quieres añadir " + cantidad + " unidades de " + producto.getText() + " a la lista?" );
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){
-			manager.anadirLinea(producto.getText(), cantidad);
+			manager.anadirLinea(producto.getText(), cantidad,false);
 			producto.setText("");
 			c.setText("");
 			Label lista = (Label)stage.getScene().lookup("#listaLabel");

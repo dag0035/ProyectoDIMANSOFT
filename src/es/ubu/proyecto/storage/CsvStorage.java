@@ -104,7 +104,6 @@ public class CsvStorage {
 	
 	public List<Producto> readFavoritos() {
 		List<Producto> favoritos = new ArrayList<Producto>();
-		System.out.println("Empezamos a leer favoritos:");
 		try {
 			BufferedReader lector = new BufferedReader(new FileReader(FICHEROLISTAFAVORITOS));
 			String linea=null;
@@ -113,7 +112,6 @@ public class CsvStorage {
 				Producto p = new Producto(linea);
 				p.setFavorito(true);
 				favoritos.add(p);
-				System.out.println("La lista queda así:" + favoritos.toString());
 			}
 			lector.close();
 		} catch (FileNotFoundException e) {
