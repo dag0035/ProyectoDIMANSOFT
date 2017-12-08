@@ -135,6 +135,10 @@ public class ListaCompra {
 		return false;
 	}
 	
+	public int size() {
+		return lista.size();
+	}
+	
 	public String toString() {
 		String res="";
 		for(Linea i: lista) {

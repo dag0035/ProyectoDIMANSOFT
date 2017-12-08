@@ -26,16 +26,15 @@ public class StorageFacade {
 	}
 	
 	public List<Producto> cargarListaFavoritos() {
-		return new ArrayList<Producto>();
+		return storage.readFavoritos();
 	}
 	
 	public boolean guardarListaCompra(ListaCompra lista) {
 		return storage.writeListaCompra(lista);
 	}
 	
-	public boolean guardarListaFavoritos() {
-	
-		return false;
+	public boolean guardarListaFavoritos(List<Producto> favoritos) {
+		return storage.writeFavoritos(favoritos);
 	}
 	
 

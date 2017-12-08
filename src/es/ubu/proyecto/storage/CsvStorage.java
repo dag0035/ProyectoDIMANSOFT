@@ -44,6 +44,10 @@ public class CsvStorage {
 
 			BufferedWriter bufferEscritor = new BufferedWriter(new  FileWriter(FICHEROLISTAFAVORITOS));
 			
+			for(Producto p: favoritos) {
+				bufferEscritor.write(p.getNombre());
+			}
+			
 			bufferEscritor.close();
 		}catch(IOException ex) {
            
@@ -86,9 +90,11 @@ public class CsvStorage {
 			System.out.println("No se ha podido cargar la lista desde csvStorage");
 			return lista;
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			System.out.println("Ha habido un problema");
+			return lista;
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Ha habido un problema");
+			return lista;
 		}
 
 		
@@ -97,8 +103,29 @@ public class CsvStorage {
 	}
 	
 	public List<Producto> readFavoritos() {
+		List<Producto> favoritos = new ArrayList<Producto>();
+		System.out.println("Empezamos a leer favoritos:");
+		try {
+			BufferedReader lector = new BufferedReader(new FileReader(FICHEROLISTAFAVORITOS));
+			String linea=null;
+			while((linea = lector.readLine()) != null) {
+				System.out.println("Leído: " + linea);
+				Producto p = new Producto(linea);
+				p.setFavorito(true);
+				favoritos.add(p);
+				System.out.println("La lista queda así:" + favoritos.toString());
+			}
+			lector.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Ha habido un problema");
+			return favoritos;
+		} catch (IOException e) {
+			System.out.println("Ha habido un problema");
+			return favoritos;
+		}
+
 		
-		return new ArrayList<Producto>();
+		return favoritos;
 		
 	}
 

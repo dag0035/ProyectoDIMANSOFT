@@ -1,6 +1,7 @@
 package es.ubu.proyecto.textui;
 
 import es.ubu.proyecto.management.*;
+import es.ubu.proyecto.model.*;
 import es.ubu.proyecto.storage.StorageFacade;
 import java.util.Scanner;
 
@@ -14,7 +15,11 @@ public class TextMain {
 			+ "1 - Añadir una linea nueva\n"
 			+ "2 - Eliminar una Linea\n"
 			+ "3 - Cambiar la cantidad del producto\n"
-			+ "4 - Marcar como comprado\n");
+			+ "4 - Marcar como comprado\n"
+			+ "5 - Ver tus favoritos\n"
+			+ "6 - Añadir un favorito a la lista de la compra\n"
+			+ "7 - Añadir un producto a favoritos\n"
+			+ "8 - Eliminar un producto de favoritos\n");
 	
 
 	public static void main(String[] args) {
@@ -27,6 +32,7 @@ public class TextMain {
 		int cantidad=0;
 		String nombreProducto=""; 
 		manager.setListaCompra(almacenamiento.cargarListaCompra());
+		manager.setFavoritos(almacenamiento.cargarListaFavoritos());
 		System.out.println("\n\nBienvenido a tu lista de la compra.");
 
 		while(ejecucion) {
@@ -93,9 +99,39 @@ public class TextMain {
 						System.out.println("No se ha modificado la linea. Es posible que no exista");
 					}
 					break;
+				case 5:
+					if(manager.getFavoritos().isEmpty()) {
+						System.out.println("No has añadido ningún favorito todavía.");
+					}else {
+						System.out.println("Estos son tus favoritos: ");
+						for(int i=0;i<manager.getFavoritos().size();i++) {
+							System.out.println(i + " - " + manager.getFavoritos().get(i).getNombre());
+						}
+					}
+					break;
 					
+				case 6:
+					System.out.println("Introduce el favorito que quieres añadir");
+					linea=leerEnteroPositivoTeclado();
+					if(linea<manager.getFavoritos().size()-1) {
+						System.out.println("¿Qué cantidad?");
+						cantidad=leerEnteroPositivoTeclado();
+						manager.anadirLinea(manager.getFavoritos().get(linea).getNombre(), cantidad);
+					}else {
+						System.out.println("Parece que ese favorito no existe");
+					}
+					break;
+					
+				case 7:
+					
+					break;
+					
+				case 8:
+					
+					break;
 				default:
 					System.out.println("Algo ha salido mal. Disculpa las molestias");
+			
 			}
 		}
 		
@@ -122,7 +158,7 @@ public class TextMain {
 	
 	private static int leerOpcionTeclado() {
 		int opcion = leerEnteroPositivoTeclado();
-		while(opcion>4) {
+		while(opcion>8) {
 			System.out.println(msgErrorEntrada);
 			System.out.println(msgOpciones);
 			opcion = leerEnteroPositivoTeclado();
