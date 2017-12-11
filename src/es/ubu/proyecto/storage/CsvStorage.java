@@ -41,11 +41,10 @@ public class CsvStorage {
 	
 	public boolean writeFavoritos(List<Producto> favoritos) {
 		try{
-
 			BufferedWriter bufferEscritor = new BufferedWriter(new  FileWriter(FICHEROLISTAFAVORITOS));
 			
 			for(Producto p: favoritos) {
-				bufferEscritor.write(p.getNombre());
+				bufferEscritor.write(p.getNombre() + "\n");
 			}
 			
 			bufferEscritor.close();
@@ -108,7 +107,6 @@ public class CsvStorage {
 			BufferedReader lector = new BufferedReader(new FileReader(FICHEROLISTAFAVORITOS));
 			String linea=null;
 			while((linea = lector.readLine()) != null) {
-				System.out.println("Leído: " + linea);
 				Producto p = new Producto(linea);
 				p.setFavorito(true);
 				favoritos.add(p);

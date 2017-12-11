@@ -60,6 +60,16 @@ public class ListManager {
 	public String imprimirLista() {
 		return lista.toString();
 	}
+	
+	public String imprimirFavs() {
+		String res = "";
+		int i=0;
+		for(Producto p: favoritos) {
+			res+=i + " - " + p.getNombre() + "\n";	
+			i++;
+		}
+		return res;
+	}
 
 	public ListaCompra getListaCompra() {
 		return lista;
@@ -102,6 +112,8 @@ public class ListManager {
 		p.setFavorito(true);
 		return favoritos.add(p);
 	}
+	
+
 	
 	public static ListManager getInstance() {
 		if (instance == null) {
