@@ -1,8 +1,6 @@
 package es.ubu.proyecto.management;
 
 
-import java.util.List;
-import java.util.ArrayList;
 import es.ubu.proyecto.model.*;
 
 
@@ -15,13 +13,13 @@ import es.ubu.proyecto.model.*;
 public class ListManager {
 	
 	private ListaCompra lista;
-	private List<Producto> favoritos;
+	private ListaFavoritos favoritos;
 	
 	private static ListManager instance = null;
 	
 	private ListManager() {
 		lista= new ListaCompra();
-		setFavoritos(new ArrayList<Producto>());
+		favoritos = new ListaFavoritos();;
 	}
 	
 	
@@ -64,7 +62,7 @@ public class ListManager {
 	public String imprimirFavs() {
 		String res = "";
 		int i=0;
-		for(Producto p: favoritos) {
+		for(Producto p: favoritos.getFavoritos()) {
 			res+=i + " - " + p.getNombre() + "\n";	
 			i++;
 		}
@@ -80,18 +78,18 @@ public class ListManager {
 		this.lista=lista;
 	}
 	
-	public List<Producto> getFavoritos() {
+	public ListaFavoritos getFavoritos() {
 		return favoritos;
 	}
 
 
-	public void setFavoritos(List<Producto> favoritos) {
+	public void setFavoritos(ListaFavoritos favoritos) {
 		this.favoritos = favoritos;
 	}
 	
-	public Producto getFav(int indice) {
+	public Producto getFavorito(int indice) {
 		if(indice>=0 && indice<=favoritos.size()-1) {
-			return favoritos.get(indice);
+			return favoritos.getFavorito(indice);
 		}else {
 			return null;
 		}
@@ -108,9 +106,7 @@ public class ListManager {
 	}
 	
 	public boolean anadirFav(String nombre) {
-		Producto p = new Producto(nombre);
-		p.setFavorito(true);
-		return favoritos.add(p);
+		return favoritos.add(nombre);
 	}
 	
 

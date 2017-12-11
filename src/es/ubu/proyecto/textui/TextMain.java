@@ -100,12 +100,12 @@ public class TextMain {
 					}
 					break;
 				case 5:
-					if(manager.getFavoritos().isEmpty()) {
+					if(manager.getFavoritos().getFavoritos().isEmpty()) {
 						System.out.println("No has añadido ningún favorito todavía.");
 					}else {
 						System.out.println("Estos son tus favoritos: ");
 						for(int i=0;i<manager.getFavoritos().size();i++) {
-							System.out.println(i + " - " + manager.getFavoritos().get(i).getNombre());
+							System.out.println(i + " - " + manager.getFavorito(i).getNombre());
 						}
 					}
 					break;
@@ -116,7 +116,7 @@ public class TextMain {
 					if(linea<=manager.getFavoritos().size()-1) {
 						System.out.println("¿Qué cantidad?");
 						cantidad=leerEnteroPositivoTeclado();
-						manager.anadirProducto(manager.getFav(linea), cantidad);
+						manager.anadirProducto(manager.getFavorito(linea), cantidad);
 					}else {
 						System.out.println("Parece que ese favorito no existe");
 					}

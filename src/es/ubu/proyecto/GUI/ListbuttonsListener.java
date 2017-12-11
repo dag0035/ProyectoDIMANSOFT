@@ -4,7 +4,6 @@ package es.ubu.proyecto.GUI;
 import java.util.Optional;
 import es.ubu.proyecto.management.ListManager;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -237,9 +236,9 @@ public class ListbuttonsListener implements EventHandler<MouseEvent> {
 		alert.setHeaderText("¿Seguro que quieres añadirlo a la lista?" );
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK){
-			manager.anadirProducto(manager.getFav(linea), cantidad);
-			//Label lista = (Label) ventana.getScene().lookup("#labelLista");
-			//lista.setText(manager.imprimirLista());
+			manager.anadirProducto(manager.getFavorito(linea), cantidad);
+			l.setText("");
+			c.setText("");
 			return;
 		} else {
 			l.setText("");

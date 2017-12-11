@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import es.ubu.proyecto.model.*;
@@ -39,11 +37,11 @@ public class CsvStorage {
 		return true;
 	}
 	
-	public boolean writeFavoritos(List<Producto> favoritos) {
+	public boolean writeFavoritos(ListaFavoritos favoritos) {
 		try{
 			BufferedWriter bufferEscritor = new BufferedWriter(new  FileWriter(FICHEROLISTAFAVORITOS));
 			
-			for(Producto p: favoritos) {
+			for(Producto p: favoritos.getFavoritos()) {
 				bufferEscritor.write(p.getNombre() + "\n");
 			}
 			
@@ -101,15 +99,13 @@ public class CsvStorage {
 		
 	}
 	
-	public List<Producto> readFavoritos() {
-		List<Producto> favoritos = new ArrayList<Producto>();
+	public ListaFavoritos readFavoritos() {
+		ListaFavoritos favoritos = new ListaFavoritos();
 		try {
 			BufferedReader lector = new BufferedReader(new FileReader(FICHEROLISTAFAVORITOS));
 			String linea=null;
 			while((linea = lector.readLine()) != null) {
-				Producto p = new Producto(linea);
-				p.setFavorito(true);
-				favoritos.add(p);
+				favoritos.add(linea);
 			}
 			lector.close();
 		} catch (FileNotFoundException e) {
