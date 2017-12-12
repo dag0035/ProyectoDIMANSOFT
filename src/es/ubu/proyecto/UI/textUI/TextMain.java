@@ -1,11 +1,12 @@
-package es.ubu.proyecto.textui;
+package es.ubu.proyecto.UI.textUI;
 
 import es.ubu.proyecto.management.*;
 import es.ubu.proyecto.model.*;
 import es.ubu.proyecto.storage.*;
+import es.ubu.proyecto.UI.*;
 import java.util.Scanner;
 
-public class TextMain {
+public class TextMain implements UI{
 	
 
 	private final String msgErrorEntrada=("Opcion no valida, por favor introduce una opcion válida\n");
@@ -21,15 +22,14 @@ public class TextMain {
 	
 	private Storage almacenamiento = StorageFacade.getInstace();
 	private Scanner teclado = new Scanner(System.in);
-
-	public static void main(String[] args) {
-		
+	
+	public void execute() {
 		TextMain t = new TextMain();
-		t.execution();
-
+		t.begin();
 	}
 
-	private void execution() {
+
+	private void begin() {
 		Boolean ejecucion=true;
 		ListManager manager= ListManager.getInstance();
 		int opcion=0;

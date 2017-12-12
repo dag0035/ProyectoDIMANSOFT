@@ -1,4 +1,4 @@
-package es.ubu.proyecto.GUI;
+package es.ubu.proyecto.UI.GUI;
 
 
 import java.util.Optional;

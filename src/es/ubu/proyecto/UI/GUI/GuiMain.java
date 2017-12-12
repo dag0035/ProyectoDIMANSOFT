@@ -1,4 +1,4 @@
-package es.ubu.proyecto.GUI;
+package es.ubu.proyecto.UI.GUI;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -15,9 +15,10 @@ import java.util.List;
 import es.ubu.proyecto.management.*;
 import es.ubu.proyecto.model.*;
 import es.ubu.proyecto.storage.*;
+import es.ubu.proyecto.UI.*;
 
 
-public class GuiMain extends Application{
+public class GuiMain extends Application implements UI{
 	
 	private Stage ventana = null;
 	private ListManager manager =  ListManager.getInstance();
@@ -29,6 +30,10 @@ public class GuiMain extends Application{
             "-fx-border-insets: 1;\n" +
             "-fx-border-width: 1;\n" +
             "-fx-border-style: solid;\n";
+	
+	public void execute() {
+		launch();
+	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -53,9 +58,7 @@ public class GuiMain extends Application{
 	}
 
 	
-	public static void main(String []args) {
-		launch(args);
-	}
+
 	
 	public Scene setupListScene () {
 			VBox root = new VBox ();
