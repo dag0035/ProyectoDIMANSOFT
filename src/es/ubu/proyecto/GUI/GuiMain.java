@@ -13,18 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.ubu.proyecto.management.*;
-import es.ubu.proyecto.model.Linea;
-import es.ubu.proyecto.model.ListaCompra;
-import es.ubu.proyecto.model.ListaFavoritos;
-import es.ubu.proyecto.model.Producto;
-import es.ubu.proyecto.storage.StorageFacade;
+import es.ubu.proyecto.model.*;
+import es.ubu.proyecto.storage.*;
 
 
 public class GuiMain extends Application{
 	
 	private Stage ventana = null;
 	private ListManager manager =  ListManager.getInstance();
-	private StorageFacade almacenamiento = StorageFacade.getInstace();
+	private Storage almacenamiento = StorageFacade.getInstace();
 	private List<Button> botones= new ArrayList<Button>();
 	private Scene sceneLista, sceneFavoritos;
 	

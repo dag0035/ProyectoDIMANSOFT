@@ -10,13 +10,13 @@ import java.util.Scanner;
 
 import es.ubu.proyecto.model.*;
 
-public class CsvStorage {
+public class CsvStorage implements Storage {
 	
 	private static final String 	FICHEROLISTACOMPRA="files/savedList.csv";
 	private static final String FICHEROLISTAFAVORITOS="files/savedFav.csv";
 	
 	
-	public boolean writeListaCompra(ListaCompra lista) {
+	public boolean guardarListaCompra(ListaCompra lista) {
 		try{
 			BufferedWriter bufferEscritor = new BufferedWriter(new  FileWriter(FICHEROLISTACOMPRA));
 			
@@ -37,7 +37,7 @@ public class CsvStorage {
 		return true;
 	}
 	
-	public boolean writeFavoritos(ListaFavoritos favoritos) {
+	public boolean guardarListaFavoritos(ListaFavoritos favoritos) {
 		try{
 			BufferedWriter bufferEscritor = new BufferedWriter(new  FileWriter(FICHEROLISTAFAVORITOS));
 			
@@ -55,7 +55,7 @@ public class CsvStorage {
 		return true;
 	}
 	
-	public ListaCompra readListaCompra() {
+	public ListaCompra cargarListaCompra() {
 		ListaCompra lista = new ListaCompra();
         try {
         		BufferedReader lector = new BufferedReader(new FileReader(FICHEROLISTACOMPRA));
@@ -99,7 +99,7 @@ public class CsvStorage {
 		
 	}
 	
-	public ListaFavoritos readFavoritos() {
+	public ListaFavoritos cargarListaFavoritos() {
 		ListaFavoritos favoritos = new ListaFavoritos();
 		try {
 			BufferedReader lector = new BufferedReader(new FileReader(FICHEROLISTAFAVORITOS));

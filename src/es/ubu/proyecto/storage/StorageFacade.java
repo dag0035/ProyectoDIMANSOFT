@@ -2,9 +2,9 @@ package es.ubu.proyecto.storage;
 
 
 import es.ubu.proyecto.model.*;
-public class StorageFacade {
+public class StorageFacade implements Storage {
 	
-	private CsvStorage storage;
+	private Storage storage;
 	
 	private static StorageFacade instance=null;
 	
@@ -21,19 +21,19 @@ public class StorageFacade {
 	}
 	
 	public ListaCompra cargarListaCompra() {
-		return storage.readListaCompra();
+		return storage.cargarListaCompra();
 	}
 	
 	public ListaFavoritos cargarListaFavoritos() {
-		return storage.readFavoritos();
+		return storage.cargarListaFavoritos();
 	}
 	
 	public boolean guardarListaCompra(ListaCompra lista) {
-		return storage.writeListaCompra(lista);
+		return storage.guardarListaCompra(lista);
 	}
 	
 	public boolean guardarListaFavoritos(ListaFavoritos favoritos) {
-		return storage.writeFavoritos(favoritos);
+		return storage.guardarListaFavoritos(favoritos);
 	}
 	
 

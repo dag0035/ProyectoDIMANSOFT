@@ -2,7 +2,7 @@ package es.ubu.proyecto.textui;
 
 import es.ubu.proyecto.management.*;
 import es.ubu.proyecto.model.*;
-import es.ubu.proyecto.storage.StorageFacade;
+import es.ubu.proyecto.storage.*;
 import java.util.Scanner;
 
 public class TextMain {
@@ -19,7 +19,7 @@ public class TextMain {
 			+ "6 - Añadir un producto a favoritos\n"
 			+ "7 - Eliminar un producto de favoritos\n");
 	
-	private StorageFacade almacenamiento = StorageFacade.getInstace();
+	private Storage almacenamiento = StorageFacade.getInstace();
 	private Scanner teclado = new Scanner(System.in);
 
 	public static void main(String[] args) {
