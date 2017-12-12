@@ -3,6 +3,10 @@ package es.ubu.proyecto.GUI;
 
 import java.util.Optional;
 import es.ubu.proyecto.management.ListManager;
+import es.ubu.proyecto.model.Linea;
+import es.ubu.proyecto.model.ListaCompra;
+import es.ubu.proyecto.model.ListaFavoritos;
+import es.ubu.proyecto.model.Producto;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -48,10 +52,11 @@ public class ListbuttonsListener implements EventHandler<MouseEvent> {
 				this.anadirFavALista();
 				break;
 			case "buttonAnadirFav":
-				
+				this.anadirFavorito();
 				break;
 				
 			case "buttonBorrarFav":
+				borrarFavorito();
 				break;
 				
 			default:
@@ -93,7 +98,7 @@ public class ListbuttonsListener implements EventHandler<MouseEvent> {
 			manager.eliminarLinea(linea);
 			input.setText("");
 			Label lista = (Label)ventana.getScene().lookup("#listaLabel");
-			lista.setText(manager.imprimirLista());
+			lista.setText(imprimirListaCompra(manager.getListaCompra()));
 			return;
 		} else {
 			input.setText("");
@@ -132,7 +137,7 @@ public class ListbuttonsListener implements EventHandler<MouseEvent> {
 			producto.setText("");
 			c.setText("");
 			Label lista = (Label)ventana.getScene().lookup("#listaLabel");
-			lista.setText(manager.imprimirLista());
+			lista.setText(imprimirListaCompra(manager.getListaCompra()));
 			return;
 		} else {
 			producto.setText("");
@@ -166,7 +171,7 @@ public class ListbuttonsListener implements EventHandler<MouseEvent> {
 			manager.marcarLineaComprada(linea);
 			input.setText("");
 			Label lista = (Label)ventana.getScene().lookup("#listaLabel");
-			lista.setText(manager.imprimirLista());
+			lista.setText(imprimirListaCompra(manager.getListaCompra()));
 			return;
 		} else {
 			input.setText("");
@@ -203,7 +208,7 @@ public class ListbuttonsListener implements EventHandler<MouseEvent> {
 			l.setText("");
 			c.setText("");
 			Label lista = (Label)ventana.getScene().lookup("#listaLabel");
-			lista.setText(manager.imprimirLista());
+			lista.setText(imprimirListaCompra(manager.getListaCompra()));
 			return;
 		} else {
 			l.setText("");
@@ -247,6 +252,59 @@ public class ListbuttonsListener implements EventHandler<MouseEvent> {
 		}
 	}
 	
+	private void anadirFavorito() {
+		TextField n = (TextField) ventana.getScene().lookup("#inputNombreAnadirFav");
+		if (n.getText().isEmpty()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("¡Has dejado el nombre vacío!");
+			alert.showAndWait();
+			return;
+		}
+		String nombre = n.getText();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmación");
+		alert.setHeaderText("¿Seguro que quieres añadirlo a la lista?" );
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			manager.anadirFav(nombre);
+			Label l = (Label) ventana.getScene().lookup("#labelListaFavs");
+			l.setText(imprimirListaFavoritos(manager.getFavoritos()));
+			n.setText("");
+			return;
+		} else {
+			n.setText("");
+		    return;
+		}
+	}
+	
+	private void borrarFavorito() {
+		TextField n = (TextField) ventana.getScene().lookup("#inputNumBorrarFav");
+		if (n.getText().isEmpty()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("¡Has dejado el campo vacío!");
+			alert.showAndWait();
+			return;
+		}
+		int indice = getInteger(n.getText()); 
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmación");
+		alert.setHeaderText("¿Seguro que quieres borrarlo de la lista?" );
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+			manager.borrarFav(indice);
+			Label l = (Label) ventana.getScene().lookup("#labelListaFavs");
+			l.setText(imprimirListaFavoritos(manager.getFavoritos()));
+			n.setText("");
+			return;
+		} else {
+			n.setText("");
+		    return;
+		}
+	}
+	
+	
 	/**
 	 * Método que calcula si un número pasado es un elemento de la lista o no.
 	 * @param indice, el numero a chequear.
@@ -260,6 +318,7 @@ public class ListbuttonsListener implements EventHandler<MouseEvent> {
 		}
 	}
 	
+
 	/**
 	 * Método que calcula si un indice está dentro de los parametros de la lista.
 	 * @param indice, el indice que quieres comprobar.
@@ -288,7 +347,29 @@ public class ListbuttonsListener implements EventHandler<MouseEvent> {
 		return res;
 	}
 	
-
+	private String imprimirListaCompra(ListaCompra lista) {
+		int i =0;
+		String res="";
+		for(Linea l: lista.getLista()) {
+			String comprado="No";
+			if(l.getComprado()) {
+				comprado="Sí";
+			}
+			res += i + "- " + l.getProducto().getNombre() + " - " + l.getCantidad() + " - " + comprado + "\n";
+			i++;
+		}
+		return res;
+	}
+	
+	private String imprimirListaFavoritos(ListaFavoritos lista) {
+		String res="";
+		int i=0;
+		for(Producto p: lista.getFavoritos()) {
+			res+=i +  " - " + p.getNombre() + "\n";
+			i++;
+		}
+		return res;
+	}
 
 
 }

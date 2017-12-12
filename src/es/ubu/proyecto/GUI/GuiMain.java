@@ -13,16 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.ubu.proyecto.management.*;
+import es.ubu.proyecto.model.Linea;
+import es.ubu.proyecto.model.ListaCompra;
+import es.ubu.proyecto.model.ListaFavoritos;
+import es.ubu.proyecto.model.Producto;
 import es.ubu.proyecto.storage.StorageFacade;
 
 
 public class GuiMain extends Application{
 	
-	private static Stage ventana = null;
-	private static ListManager manager =  ListManager.getInstance();;
-	private static StorageFacade almacenamiento = StorageFacade.getInstace();
-	private static List<Button> botones= new ArrayList<Button>();
-	private static Scene sceneLista = setupListScene(), sceneFavoritos = setupFavScene();
+	private Stage ventana = null;
+	private ListManager manager =  ListManager.getInstance();
+	private StorageFacade almacenamiento = StorageFacade.getInstace();
+	private List<Button> botones= new ArrayList<Button>();
+	private Scene sceneLista, sceneFavoritos;
 	
 	private final static String cssLayout = "-fx-border-color: black;\n" +
             "-fx-border-insets: 1;\n" +
@@ -56,7 +60,7 @@ public class GuiMain extends Application{
 		launch(args);
 	}
 	
-	public static Scene setupListScene () {
+	public Scene setupListScene () {
 			VBox root = new VBox ();
 		    root.setSpacing (10.0);
 		    root.setPadding (new Insets (10.0, 10.0, 10.0, 10.0));
@@ -79,10 +83,10 @@ public class GuiMain extends Application{
 		    Label listaLabel = new Label ();
 		    listaLabel.setPrefWidth (400.0);
 		    	listaLabel.setId("listaLabel");
-		    	if(manager.imprimirLista().isEmpty()) {
+		    	if(imprimirListaCompra(manager.getListaCompra()).isEmpty()) {
 		    		listaLabel.setText("Tu lista esta vacía, puedes añadir productos cuando quieras.");
 		    	}else {
-		    		listaLabel.setText(manager.imprimirLista());
+		    		listaLabel.setText(imprimirListaCompra(manager.getListaCompra()));
 		    	}
 
 
@@ -93,7 +97,7 @@ public class GuiMain extends Application{
 	}
 
 
-	private static HBox setupSeguro() {
+	private HBox setupSeguro() {
 		Label labelSeguro =new Label("Modo seguro: ");
 		CheckBox seguro = new CheckBox();
 		seguro.selectedProperty().addListener (new CheckBoxListener(botones));
@@ -102,7 +106,7 @@ public class GuiMain extends Application{
 		return layoutSeguro;
 	}
 	
-	private static Scene setupFavScene() {
+	private Scene setupFavScene() {
 		VBox root = new VBox ();
 	    root.setSpacing (10.0);
 	    root.setPadding (new Insets (10.0, 10.0, 10.0, 10.0));
@@ -121,7 +125,12 @@ public class GuiMain extends Application{
 	    VBox controles = new VBox();
 	    controles.getChildren().addAll(setupAnadirFavALista(),setupAnadirFav(),setupBorrarFav());
 	    
-	    Label labelListaFavs = new Label (manager.imprimirFavs());
+	    Label labelListaFavs = new Label ();
+	    if(imprimirListaFavoritos(manager.getFavoritos()).isEmpty()) {
+	    		labelListaFavs.setText("Parece que no tienes favoritos. Añade alguno.");
+	    }else {
+	    		labelListaFavs.setText(imprimirListaFavoritos(manager.getFavoritos()));
+	    }
 	    labelListaFavs.setId("labelListaFavs");
 	    labelListaFavs.setPrefWidth (400.0);
 
@@ -132,7 +141,7 @@ public class GuiMain extends Application{
 	}
 
 
-	private static Node setupBorrarLinea() {
+	private  Node setupBorrarLinea() {
 		HBox borrarLinea1 = new HBox();
 		Label labelBorrarLinea = new Label ("Introduce el número de línea:   ");
 		TextField inputBorrarLinea = new TextField ();
@@ -151,7 +160,7 @@ public class GuiMain extends Application{
 	}
 
 
-	private static Node setupModificarComprado() {
+	private  Node setupModificarComprado() {
 		HBox modificarComprado1 = new HBox();
 		Label labelModificarComprado = new Label ("Introduce el número de línea:   ");
 		TextField inputModificarComprado = new TextField ();
@@ -170,7 +179,7 @@ public class GuiMain extends Application{
 	}
 
 
-	private static Node setupModificarCantidad() {
+	private Node setupModificarCantidad() {
 		HBox modificarCantidad1 = new HBox();
 		Label labelLineaModificarCantidad = new Label("Introduce el número de línea:   ");
 		TextField inputLineaModificarCantidad = new TextField ();
@@ -195,7 +204,7 @@ public class GuiMain extends Application{
 	}
 
 
-	private static Node setupAnadirLinea() {
+	private Node setupAnadirLinea() {
 		HBox anadirLinea1 = new HBox();
 		Label labelProductoAnadirLinea = new Label("Introduce el producto a añadir: ");
 		TextField inputProductoAnadirLinea = new TextField ();
@@ -219,7 +228,7 @@ public class GuiMain extends Application{
 		return anadirLinea;
 	}
 	
-	private static Node setupAnadirFavALista() {
+	private Node setupAnadirFavALista() {
 		HBox anadirFav1 = new HBox();
 		Label labelFavoritoAnadirFav = new Label("Introduce el Nº de favorito:	");
 		TextField inputFavAnadirFavALista = new TextField ();
@@ -242,11 +251,11 @@ public class GuiMain extends Application{
 		return anadirFav;
 	}
 	
-	private static Node setupAnadirFav() {
+	private Node setupAnadirFav() {
 		HBox anadirFav1 = new HBox();
 		Label labelNombreAnadirFav = new Label("Introduce el nombre del producto:	");
 		TextField inputNombreAnadirFav = new TextField ();
-		inputNombreAnadirFav.setId("inputFavAnadirFav");
+		inputNombreAnadirFav.setId("inputNombreAnadirFav");
 		inputNombreAnadirFav.setPrefWidth(200);
 		anadirFav1.getChildren().addAll(labelNombreAnadirFav,inputNombreAnadirFav);
 		Button buttonAnadirFav = new Button("Añadir favorito");
@@ -260,7 +269,7 @@ public class GuiMain extends Application{
 	}
 
 	
-	private static Node setupBorrarFav() {
+	private Node setupBorrarFav() {
 		HBox borrarFav1 = new HBox();
 		Label labelNombreBorrarFav = new Label("Introduce el Nº del producto:	");
 		TextField inputNumBorrarFav = new TextField ();
@@ -276,4 +285,29 @@ public class GuiMain extends Application{
 		borrarFav.setPadding(new Insets (10.0, 10.0, 10.0, 10.0));
 		return borrarFav;
 	}
+	
+	private String imprimirListaCompra(ListaCompra lista) {
+		int i =0;
+		String res="";
+		for(Linea l: lista.getLista()) {
+			String comprado="No";
+			if(l.getComprado()) {
+				comprado="Sí";
+			}
+			res += i + "- " + l.getProducto().getNombre() + " - " + l.getCantidad() + " - " + comprado + "\n";
+			i++;
+		}
+		return res;
+	}
+	
+	private String imprimirListaFavoritos(ListaFavoritos lista) {
+		String res="";
+		int i=0;
+		for(Producto p: lista.getFavoritos()) {
+			res+=i +  " - " + p.getNombre() + "\n";
+			i++;
+		}
+		return res;
+	}
+	
 }
