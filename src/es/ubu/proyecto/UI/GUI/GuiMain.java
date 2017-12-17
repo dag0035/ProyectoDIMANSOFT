@@ -17,24 +17,51 @@ import es.ubu.proyecto.model.*;
 import es.ubu.proyecto.storage.*;
 import es.ubu.proyecto.UI.*;
 
-
+/**
+ * Clase con la interfaz gráfica de la aplicacion.
+ * @author Marcos Orive Izarra.
+ *
+ */
 public class GuiMain extends Application implements UI{
-	
+	/**
+	 * La stage en la que se soporta la UI.
+	 */
 	private Stage ventana = null;
+	/**
+	 * El manager de las listas.
+	 */
 	private ListManager manager =  ListManager.getInstance();
+	/**
+	 * El gestor de almacenamiento.
+	 */
 	private Storage almacenamiento = StorageFacade.getInstace();
+	/**
+	 * Una lista con los botones, para poder realizar acciones sobre ellos.
+	 */
 	private List<Button> botones= new ArrayList<Button>();
+	/**
+	 * Las escenas de la aplicacion.
+	 */
 	private Scene sceneLista, sceneFavoritos;
 	
+	/**
+	 * Constante de clase con el layour de algunas partes de la aplicacion.
+	 */
 	private final static String cssLayout = "-fx-border-color: black;\n" +
             "-fx-border-insets: 1;\n" +
             "-fx-border-width: 1;\n" +
             "-fx-border-style: solid;\n";
 	
+	/**
+	 * Método par ejecutar la aplicación.
+	 */
 	public void execute() {
 		launch();
 	}
 
+	/**
+	 * Método start heredado de Aplication. Comienza la ejecuión.
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
@@ -59,7 +86,10 @@ public class GuiMain extends Application implements UI{
 
 	
 
-	
+	/**
+	 * Se forma la escena de la lista.
+	 * @return objeto Scene con la escena de la lista de la compra.
+	 */
 	public Scene setupListScene () {
 			VBox root = new VBox ();
 		    root.setSpacing (10.0);

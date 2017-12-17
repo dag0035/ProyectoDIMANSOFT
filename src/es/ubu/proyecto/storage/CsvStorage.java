@@ -10,13 +10,28 @@ import java.util.Scanner;
 
 import es.ubu.proyecto.model.*;
 
-public class CsvStorage implements Storage {
-	
+/**
+ * Clase que guarda la información de la lista de la compra
+ * y la lista de favoritos como archivos csv.
+ * @author Marcos Orive Izarra.
+ *
+ */
+public class CsvStorage{
+	/**
+	 * Constante de clase que guarda la ruta del fichero de la lista de la compra.
+	 */
 	private static final String 	FICHEROLISTACOMPRA="files/savedList.csv";
+	/**
+	 * Constante de clase que guarda la ruta del fichero de la lista de la compra.
+	 */
 	private static final String FICHEROLISTAFAVORITOS="files/savedFav.csv";
 	
-	
-	public boolean guardarListaCompra(ListaCompra lista) {
+	/**
+	 * Método que escribe el archivo de la lista de la compra.
+	 * @param lista, la lista de la compra.
+	 * @return true si ha podido escribirlo sin problema.
+	 */
+	public boolean writeListaCompra(ListaCompra lista) {
 		try{
 			BufferedWriter bufferEscritor = new BufferedWriter(new  FileWriter(FICHEROLISTACOMPRA));
 			
@@ -37,7 +52,12 @@ public class CsvStorage implements Storage {
 		return true;
 	}
 	
-	public boolean guardarListaFavoritos(ListaFavoritos favoritos) {
+	/**
+	 * Método que escribe el archivo de la lista de favoritos.
+	 * @param lista, la lista de favotios.
+	 * @return true si ha podido escribirlo sin problema.
+	 */
+	public boolean writeListaFavoritos(ListaFavoritos favoritos) {
 		try{
 			BufferedWriter bufferEscritor = new BufferedWriter(new  FileWriter(FICHEROLISTAFAVORITOS));
 			
@@ -47,15 +67,18 @@ public class CsvStorage implements Storage {
 			
 			bufferEscritor.close();
 		}catch(IOException ex) {
-           
 			return false;
          }
 
 		
 		return true;
 	}
-	
-	public ListaCompra cargarListaCompra() {
+
+	/**
+	 * Lee la lista de la compra.
+	 * @return Devuelve una lisa llena si ha podido leerla y había algo. Una lista vacía si ha habido problemas o está vacia.
+	 */
+	public ListaCompra readListaCompra() {
 		ListaCompra lista = new ListaCompra();
         try {
         		BufferedReader lector = new BufferedReader(new FileReader(FICHEROLISTACOMPRA));
@@ -98,8 +121,11 @@ public class CsvStorage implements Storage {
 		return lista;
 		
 	}
-	
-	public ListaFavoritos cargarListaFavoritos() {
+	/**
+	 * Lee la lista de favoritos.
+	 * @return Devuelve una lisa llena si ha podido leerla y había algo. Una lista vacía si ha habido problemas o está vacia.
+	 */
+	public ListaFavoritos readListaFavoritos() {
 		ListaFavoritos favoritos = new ListaFavoritos();
 		try {
 			BufferedReader lector = new BufferedReader(new FileReader(FICHEROLISTAFAVORITOS));
